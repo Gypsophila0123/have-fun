@@ -1,0 +1,120 @@
+{
+  "semantic_search_template": {
+    "description": "北大法宝语义检索策略模板 — Phase 3 检索策略生成引擎使用",
+    "search_type": "semantic",
+    "fields": {
+      "charges": {
+        "type": "array",
+        "description": "候选罪名列表（法条规范名称）",
+        "example": ["非法获取计算机信息系统数据罪"]
+      },
+      "core_facts": {
+        "type": "object",
+        "description": "核心案情要素（用于语义匹配）",
+        "fields": {
+          "behavior": "行为描述",
+          "target": "目标系统描述",
+          "data_type": "数据类型",
+          "data_volume": "数据规模",
+          "consequence": "后果描述"
+        },
+        "example": {
+          "behavior": "利用SQL注入获取用户数据",
+          "target": "电子商务网站",
+          "data_type": "用户个人信息",
+          "data_volume": "50000条以上",
+          "consequence": "个人信息泄露"
+        }
+      },
+      "filters": {
+        "type": "object",
+        "fields": {
+          "court_level": {
+            "type": "array",
+            "options": ["最高人民法院", "高级法院", "中级法院", "基层法院", "互联网法院"]
+          },
+          "date_range": {
+            "type": "string",
+            "format": "YYYY-MM-DD至YYYY-MM-DD",
+            "default": "2018-01-01至2025-12-31"
+          },
+          "trial_stage": {
+            "type": "array",
+            "options": ["一审", "二审", "再审"]
+          },
+          "verdict_type": {
+            "type": "array",
+            "options": ["有罪判决", "无罪判决", "改判", "发回重审"],
+            "default": ["有罪判决"]
+          }
+        }
+      },
+      "max_results": {
+        "type": "integer",
+        "default": 50
+      }
+    }
+  },
+  "keyword_search_template": {
+    "description": "北大法宝关键词检索策略模板",
+    "search_type": "keyword",
+    "fields": {
+      "charge_keywords": {
+        "type": "string",
+        "description": "罪名关键词（法条规范罪名）",
+        "example": "非法获取计算机信息系统数据"
+      },
+      "fact_keywords": {
+        "type": "array",
+        "description": "案情关键词组（内部用OR连接同义词，组间用AND）",
+        "items": {
+          "type": "object",
+          "fields": {
+            "field": "检索字段（全文/标题/裁判要旨/案情/理由）",
+            "value": "主关键词",
+            "operator": "AND或OR（与上一组的连接方式）",
+            "alt_value": "备选同义词（OR时使用）"
+          }
+        },
+        "example": [
+          {"field": "全文", "value": "SQL注入", "operator": "AND"},
+          {"field": "全文", "value": "个人信息", "operator": "AND"},
+          {"field": "全文", "value": "50000", "operator": "OR", "alt_value": "五万"}
+        ]
+      },
+      "filters": {
+        "type": "object",
+        "fields": {
+          "court_level": ["中级法院", "基层法院"],
+          "date_range": "2018-01-01至2025-12-31",
+          "trial_stage": ["一审", "二审"]
+        }
+      },
+      "max_results": {
+        "type": "integer",
+        "default": 50
+      }
+    }
+  },
+  "local_search_template": {
+    "description": "本地案例库检索策略模板（可选）",
+    "search_type": "local",
+    "fields": {
+      "library_path": {
+        "type": "string",
+        "description": "本地案例库路径"
+      },
+      "query": {
+        "type": "string",
+        "description": "检索查询语句（取决于本地库的查询接口）"
+      },
+      "filters": {
+        "type": "object",
+        "fields": {
+          "date_range": "2018-01-01至2025-12-31",
+          "verdict_type": ["有罪判决"]
+        }
+      }
+    }
+  }
+}

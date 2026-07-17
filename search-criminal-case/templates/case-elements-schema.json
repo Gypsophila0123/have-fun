@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Case Elements Extraction Schema",
+  "description": "计算机犯罪案件要素提取 JSON Schema — Phase 1 要素提取引擎使用",
+  "type": "object",
+  "required": ["case_summary", "behavior_type", "target_system_type"],
+  "properties": {
+    "case_summary": {
+      "type": "string",
+      "description": "一句话案情概述",
+      "maxLength": 200
+    },
+    "behavior_type": {
+      "type": "string",
+      "description": "行为类型",
+      "enum": ["侵入", "获取数据", "非法控制", "提供程序工具", "破坏系统", "组合行为"]
+    },
+    "target_system_type": {
+      "type": "string",
+      "description": "目标系统类型",
+      "enum": ["国家事务", "国防建设", "尖端科技", "其他重要领域", "普通系统"]
+    },
+    "target_system_detail": {
+      "type": "string",
+      "description": "系统具体描述（如某省政府门户网站）"
+    },
+    "method": {
+      "type": "string",
+      "description": "技术手段描述（如SQL注入、暴力破解、木马植入等）"
+    },
+    "data_type": {
+      "type": "string",
+      "description": "数据类型",
+      "enum": ["个人信息", "账号密码", "金融数据", "系统控制权", "程序工具", "不涉及"]
+    },
+    "data_volume": {
+      "type": "string",
+      "description": "条数/金额/数量（如有），含单位和数字双写"
+    },
+    "consequence": {
+      "type": "string",
+      "description": "后果描述",
+      "enum": ["系统瘫痪", "数据泄露", "经济损失", "未造成严重后果", "其他"]
+    },
+    "consequence_severity": {
+      "type": "string",
+      "description": "后果严重程度",
+      "enum": ["严重", "特别严重", "未提及"]
+    },
+    "economic_loss": {
+      "type": "string",
+      "description": "具体经济损失金额（如有）"
+    },
+    "defendant_role": {
+      "type": "string",
+      "description": "被告人在犯罪中的角色",
+      "enum": ["实行者", "组织者", "帮助者", "提供者"]
+    },
+    "subjective_intent": {
+      "type": "string",
+      "description": "主观故意类型",
+      "enum": ["直接故意", "间接故意", "过失"]
+    },
+    "defendant_info": {
+      "type": "object",
+      "properties": {
+        "identity": {
+          "type": "string",
+          "enum": ["自然人", "单位"]
+        },
+        "prior_convictions": {
+          "type": "string",
+          "description": "前科情况"
+        },
+        "status": {
+          "type": "string",
+          "description": "到案情况",
+          "enum": ["自首", "坦白", "立功", "未到案"]
+        }
+      }
+    },
+    "procedural_stage": {
+      "type": "string",
+      "description": "诉讼阶段",
+      "enum": ["侦查", "审查起诉", "一审", "二审"]
+    },
+    "special_circumstances": {
+      "type": "string",
+      "description": "特殊情节（未成年人/累犯/共同犯罪/退赔退缴等）"
+    }
+  }
+}

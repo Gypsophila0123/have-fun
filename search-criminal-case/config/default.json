@@ -1,0 +1,27 @@
+{
+  "pkulaw_enabled": true,
+  "local_case_library_path": "",
+  "report_output_dir": "",
+  "max_cases_per_group": 20,
+  "parallel_writing": true,
+  "default_report_format": "docx",
+  "date_range_start": "2018-01-01",
+  "date_range_end": "2025-12-31",
+  "max_search_results": 50,
+  "typical_case_count": 5,
+  "word_format": {
+    "title_font": "黑体",
+    "title_size": 16,
+    "heading_font": "黑体",
+    "heading_size": 14,
+    "body_font": "宋体",
+    "body_size": 12,
+    "table_font": "宋体",
+    "table_size": 10.5,
+    "line_spacing": 1.5,
+    "margin_top": 2.54,
+    "margin_bottom": 2.54,
+    "margin_left": 3.17,
+    "margin_right": 3.17
+  }
+}
